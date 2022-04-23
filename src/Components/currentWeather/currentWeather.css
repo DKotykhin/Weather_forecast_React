@@ -1,0 +1,48 @@
+.image {
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding: 0 20px;
+    border: solid 2px brown;
+    border-radius: 10px;
+    min-width: 345px;
+    min-height: 255px;
+    max-width: fit-content;
+    background-color: #a4ffe1;
+    color: brown;
+}
+
+.table {
+    font-size: 20px;
+    min-width: 390px;
+    min-height: 255px;
+    margin: 0 auto;
+    margin-bottom: 30px;
+    padding: 20px;
+    border: solid 2px brown;
+    border-radius: 10px;
+    background-color: antiquewhite;
+}
+
+.table>tr>td:last-child {
+    font-weight: bold;
+    color: brown;
+    padding: 3px 0 3px 10px;
+}
+
+.lastupd {
+    text-align: center;
+    margin-bottom: 50px;
+    color: brown;
+}
+
+.table>p {
+    text-align: center;
+    font-weight: bold;
+    color: brown;
+    margin: 0;
+}
+
+.table>tr>td {
+    padding: 5px;
+}
