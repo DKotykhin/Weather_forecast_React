@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import WeatherService from "../getData/GetData";
+import GetData from "../getData/GetData";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
 import moment from "moment";
@@ -7,6 +7,7 @@ import "moment/locale/ru";
 import { Grid } from "@mui/material";
 
 import "./CurrentWeather.css";
+const getData = new GetData();
 
 const CurrentWeather = (props) => {
     const [loading, setLoading] = useState(false),
@@ -17,9 +18,7 @@ const CurrentWeather = (props) => {
         [localTime, setLocalTime] = useState(null),
         [localData, setLocalData] = useState(null),
         [lastupd, setLastupd] = useState(null),
-        [weatherData, setWeatherData] = useState({});
-
-    const weatherService = new WeatherService();
+        [weatherData, setWeatherData] = useState({});    
 
     useEffect(() => {
         getCity();
@@ -63,7 +62,7 @@ const CurrentWeather = (props) => {
 
     const getCoordinates = () => {
         if (cityName) {
-            weatherService
+            getData
                 .getCityCoordinates(cityName)
                 .then((coords) => getWeather(coords))
                 .catch(onError);
@@ -71,7 +70,7 @@ const CurrentWeather = (props) => {
     };
 
     const getWeather = (coords) => {
-        weatherService
+        getData
             .currentWeather(coords.latitude, coords.lontitude)
             .then((weatherData) => {
                 //console.log(weatherData);
