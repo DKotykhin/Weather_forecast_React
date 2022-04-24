@@ -4,7 +4,7 @@ import { InputLabel, MenuItem, FormControl } from '@mui/material';
 import { Select } from '@mui/material';
 import { Button, Stack } from '@mui/material';
 
-import './Input.css'
+import './InputSelect.css'
 
 const InputSelect = (props) => {
 
