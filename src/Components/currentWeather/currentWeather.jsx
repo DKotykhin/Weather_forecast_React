@@ -355,7 +355,7 @@ const Forecast = ({ forecast }) => {
                             </tr>
                             <tr>
                                 <td>Осадки: </td>
-                                <td>{rain} мм</td>
+                                <td>{rain ? rain.toFixed (1) + ' мм' : 0}</td>
                             </tr>
                             <tr>
                                 <td>Скорость ветра: </td>
