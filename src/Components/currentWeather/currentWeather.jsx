@@ -7,7 +7,6 @@ import "moment/locale/ru";
 import { Grid } from "@mui/material";
 
 import "./CurrentWeather.css";
-
 const getData = new GetData();
 
 const CurrentWeather = ({ cityId, flagId }) => {
@@ -27,10 +26,15 @@ const CurrentWeather = ({ cityId, flagId }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [flagId, cityId]);
 
-    useEffect(() => {
+    useEffect(() => {        
         const timeOut = setInterval(() => updateTime(), 10000);
         return () => clearInterval(timeOut);
     });
+
+    useEffect(() => {
+        updateTime()        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loaded])
 
     const updateTime = () => {
         if (loaded) {
@@ -40,14 +44,15 @@ const CurrentWeather = ({ cityId, flagId }) => {
             } = weatherData;
             setLocalTime(moment.utc().add(timezone_offset, "seconds").format("LT"));
             setLocalData(moment.utc().add(timezone_offset, "seconds").format("dddd DD MMMM"));
-            setLastupd(moment.unix(dt).startOf().fromNow());            
+            setLastupd(moment.unix(dt).startOf().fromNow());
         }
     };
 
     const getCity = () => {              
         if (cityId) {            
             setLoading(true);
-            setCityName(cityId);           
+            setCityName(cityId);
+            setLoaded(false)           
             getCoordinates();            
         }
     };
@@ -64,8 +69,7 @@ const CurrentWeather = ({ cityId, flagId }) => {
             .currentWeather(coords.latitude, coords.lontitude)
             .then((weatherData) => {                
                 setLoading(false);
-                setLoaded(true);
-                //setError(false);
+                setLoaded(true);                
                 setWeatherData(weatherData);
                 console.log(weatherData);                
             })
@@ -331,7 +335,7 @@ const Forecast = ({ forecast }) => {
                             </tr>
                             <tr>
                                 <td>Осадки: </td>
-                                <td>{rain} мм</td>
+                                <td>{rain ? rain.toFixed (1) + ' мм' : 0}</td>
                             </tr>
                             <tr>
                                 <td>Скорость ветра: </td>
