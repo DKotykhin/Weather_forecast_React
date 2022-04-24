@@ -1,6 +1,6 @@
 import axios from "axios";
 
-class WeatherService {       
+class GetData {       
     _appKey = '2e5e5a511f687e8d8ad9d60e5486dcc3';
 
     getCityCoordinates = async (city) => {
@@ -34,4 +34,4 @@ class WeatherService {
     }  
 }
 
-export default WeatherService
+export default GetData;
