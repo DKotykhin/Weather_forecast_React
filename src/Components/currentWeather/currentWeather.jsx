@@ -1,5 +1,5 @@
 import { Component } from "react";
-import WeatherService from "../getData/GetData";
+import GetData from "../getData/GetData";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Spinner from "../spinner/Spinner";
 import moment from "moment";
@@ -7,6 +7,7 @@ import "moment/locale/ru";
 import { Grid } from "@mui/material";
 
 import "./CurrentWeather.css";
+
 
 class CurrentWeather extends Component {
     constructor(props) {
@@ -24,7 +25,7 @@ class CurrentWeather extends Component {
         };
     }
 
-    weatherService = new WeatherService();
+    getData = new GetData();
 
     componentDidUpdate(prevProps) {
         if (
@@ -76,14 +77,14 @@ class CurrentWeather extends Component {
     };
 
     getCoordinates = () => {
-        this.weatherService
+        this.getData
             .getCityCoordinates(this.state.cityName)
             .then((coords) => this.getWeather(coords))
             .catch(this.onError);
     };
 
     getWeather = (coords) => {
-        this.weatherService
+        this.getData
             .currentWeather(coords.latitude, coords.lontitude)
             .then((weatherData) => {
                 console.log(weatherData);
