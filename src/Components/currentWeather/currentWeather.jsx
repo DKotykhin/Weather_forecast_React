@@ -77,7 +77,7 @@ const CurrentWeather = (props) => {
                 //console.log(weatherData);
                 setLoading(false);
                 setLoaded(true);
-                setError(false);
+                //setError(false);
                 setWeatherData(weatherData);
                 console.log(weatherData);
             })
