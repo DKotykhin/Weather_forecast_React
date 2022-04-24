@@ -7,24 +7,25 @@ import "moment/locale/ru";
 import { Grid } from "@mui/material";
 
 import "./CurrentWeather.css";
+
 const getData = new GetData();
 
-const CurrentWeather = (props) => {
+const CurrentWeather = ({ cityId, flagId }) => {
     const [loading, setLoading] = useState(false),
         [loaded, setLoaded] = useState(false),
-        [error, setError] = useState(false),
-        [flag, setFlag] = useState(true),
+        [error, setError] = useState(false),        
         [cityName, setCityName] = useState(null),
         [localTime, setLocalTime] = useState(null),
         [localData, setLocalData] = useState(null),
         [lastupd, setLastupd] = useState(null),
-        [weatherData, setWeatherData] = useState({});    
-
+        [weatherData, setWeatherData] = useState({});
+    
+    
     useEffect(() => {
-        getCity();
-        //console.log('useEffect')
+         getCity();                 
+         console.log("hooks version");
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.cityId, flag]);
+    }, [flagId, cityId]);
 
     useEffect(() => {
         const timeOut = setInterval(() => updateTime(), 10000);
@@ -37,51 +38,40 @@ const CurrentWeather = (props) => {
                 timezone_offset,
                 current: { dt },
             } = weatherData;
-            setLocalTime(
-                moment.utc().add(timezone_offset, "seconds").format("LT")
-            );
-            setLocalData(
-                moment
-                    .utc()
-                    .add(timezone_offset, "seconds")
-                    .format("dddd DD MMMM")
-            );
-            setLastupd(moment.unix(dt).startOf().fromNow());
+            setLocalTime(moment.utc().add(timezone_offset, "seconds").format("LT"));
+            setLocalData(moment.utc().add(timezone_offset, "seconds").format("dddd DD MMMM"));
+            setLastupd(moment.unix(dt).startOf().fromNow());            
         }
     };
 
-    const getCity = () => {
-        const { cityId, flagId } = props;
-        if (cityId) {
+    const getCity = () => {              
+        if (cityId) {            
             setLoading(true);
-            setCityName(cityId);
-            setFlag(flagId);
-            getCoordinates();
+            setCityName(cityId);           
+            getCoordinates();            
         }
     };
 
-    const getCoordinates = () => {
-        if (cityName) {
+    const getCoordinates = () => {        
             getData
-                .getCityCoordinates(cityName)
+                .getCityCoordinates(cityId)
                 .then((coords) => getWeather(coords))
-                .catch(onError);
-        }
+                .catch(onError);        
     };
 
     const getWeather = (coords) => {
         getData
             .currentWeather(coords.latitude, coords.lontitude)
-            .then((weatherData) => {
-                //console.log(weatherData);
+            .then((weatherData) => {                
                 setLoading(false);
                 setLoaded(true);
                 //setError(false);
                 setWeatherData(weatherData);
-                console.log(weatherData);
+                console.log(weatherData);                
             })
             .catch(onError);
     };
+    
 
     const onError = () => {
         setLoading(false);
@@ -159,6 +149,7 @@ const View = ({ view }) => {
             .format("LT"),
         descr = weather[0]["description"],
         icon = weather[0]["icon"];
+        
 
     return (
         <>
