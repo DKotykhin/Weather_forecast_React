@@ -16,7 +16,7 @@ class WeatherService {
     
     currentWeather = async (latitude, lontitude) => {
         const result = await axios.get(
-            'https://api.openweathermap.org/data/2.5/onecall?&lang=ru}', {
+            'https://api.openweathermap.org/data/2.5/onecall?&lang=ru&}', {
             params: {
               lat: latitude,
               lon: lontitude,
