@@ -1,12 +1,12 @@
 import { Component } from 'react';
-import WeatherService from '../getData';
+import WeatherService from '../getData/GetData';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
 import moment from 'moment';
 import 'moment/locale/ru'
 import { Grid } from '@mui/material';
 
-import './currentWeather.css';
+import './CurrentWeather.css';
 
 class CurrentWeather extends Component {
     constructor(props) {

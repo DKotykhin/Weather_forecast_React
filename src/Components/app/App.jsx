@@ -1,6 +1,6 @@
 
 import InputSelect from '../input/Input';
-import CurrentWeather from '../currentWeather/currentWeather';
+import CurrentWeather from '../currentWeather/CurrentWeather';
 
 import './App.css';
 import React from 'react';
