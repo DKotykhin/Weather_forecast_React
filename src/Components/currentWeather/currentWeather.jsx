@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { Component } from 'react';
 import WeatherService from '../getData/GetData';
 import ErrorMessage from '../errorMessage/ErrorMessage';
 import Spinner from '../spinner/Spinner';
@@ -8,91 +8,104 @@ import { Grid } from '@mui/material';
 
 import './CurrentWeather.css';
 
-const CurrentWeather = (props) => {
+class CurrentWeather extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            loading: false,
+            loaded: false,
+            error: false,
+            flag: true,            
+            cityName: null,
+            localTime: null,
+            localData: null,
+            lastupd: null,
+            weatherData: {}                       
+        }
+    }    
 
-    const [loading, setLoading] = useState(false),
-        [loaded, setLoaded] = useState (false),
-        [error, setError] = useState(false),
-        [flag, setFlag] = useState(true),        
-        [cityName, setCityName] = useState(null),
-        [localTime, setLocalTime] = useState(null),
-        [localData, setLocalData] = useState(null),
-        [lastupd, setLastupd] = useState(null),           
-        [weatherData, setWeatherData] = useState({});       
+    weatherService = new WeatherService();    
+     
+    componentDidUpdate(prevProps){                
+        if ((this.props.cityId !== prevProps.cityId) || 
+            (this.props.flagId !== prevProps.flagId)) {
+            this.getCity();                       
+        }
+    } 
+    
+    componentDidMount() {
+        this.timeOut = setInterval(this.updateTime, 10000)
+    }
 
-    const weatherService = new WeatherService();      
-        
-    useEffect(() => {
-        getCity();
-        //console.log('useEffect')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.cityId, flag])
+    componentWillUnmount() {
+        clearInterval(this.timeOut)
+    }
 
-    useEffect(() => {
-         const timeOut = setInterval(() => updateTime(), 10000)     
-     return () => clearInterval(timeOut)
-     })
-
-    const updateTime = () => {       
-        if (loaded) {
-            const {timezone_offset, current: {dt}} = weatherData;        
-                setLocalTime(moment.utc().add(timezone_offset, 'seconds').format('LT'))
-                setLocalData(moment.utc().add(timezone_offset, 'seconds').format('dddd DD MMMM'))
-                setLastupd(moment.unix(dt).startOf().fromNow())    
+    updateTime = () => {
+        if (this.state.loaded) {
+            const {timezone_offset, current: {dt}} =  this.state.weatherData;
+            this.setState({
+                localTime: moment.utc().add(timezone_offset, 'seconds').format('LT'),
+                localData: moment.utc().add(timezone_offset, 'seconds').format('dddd DD MMMM'),
+                lastupd: moment.unix(dt).startOf().fromNow(),
+            })       
         }
     }
 
-    const getCity = () => {        
-        const {cityId, flagId} = props;
-        if (cityId) {           
-            setLoading(true)
-            setCityName(cityId)
-            setFlag(flagId)        
-            getCoordinates()       
-        }
+    getCity = () => {
+        const {cityId, flagId} = this.props;        
+        this.setState({
+            loading: true,
+            cityName: cityId,
+            flag: flagId          
+        }, () => this.getCoordinates())       
     }
 
-    const getCoordinates = () => {
-        if (cityName) {
-            weatherService        
-            .getCityCoordinates(cityName)
-            .then(coords => getWeather(coords))             
-            .catch(onError)        
-        }                   
+    getCoordinates = () => {            
+        this.weatherService        
+        .getCityCoordinates(this.state.cityName)
+        .then(coords => this.getWeather(coords))
+        .catch(this.onError)        
     }
 
-    const getWeather = (coords) => {         
-        weatherService
+    getWeather = (coords) => {
+        this.weatherService
         .currentWeather(coords.latitude, coords.lontitude)
         .then(weatherData => {
-            //console.log(weatherData);
-            setLoading(false)
-            setLoaded(true)
-            setError(false)
-            setWeatherData(weatherData)            
-            console.log(weatherData)                      
+            console.log(weatherData);                       
+            this.setState({
+            loading: false,
+            loaded: true,            
+            weatherData                               
+            }, this.updateTime)
         })
-        .catch(onError)              
+        .catch(this.onError)              
     } 
 
-    const onError = () => {
-        setLoading(false)
-        setError(true)        
+    onError = () => {
+        this.setState({
+            loading: false,
+            error: true
+        })
         console.log('error')
-    }                
+    }    
+  
+    render() {
+        const { loading, error, loaded} = this.state;        
 
-    return (
-        <div>                
-            {error ? <ErrorMessage/> : null}
-            {loading ? <Spinner/> : null}               
-            {!(error || loading) && loaded ? <View view={[weatherData, lastupd, cityName, localData, localTime]}/> : null}
-              {!(error || loading) && loaded ? <Forecast forecast={weatherData}/> : null}
-        </div>            
-    )    
+        return (
+            <div>                
+                {error ? <ErrorMessage/> : null}
+                {loading ? <Spinner/> : null}               
+                {!(error || loading) && loaded ? <View view={this.state}/> : null}
+                {!(error || loading) && loaded ? <Forecast forecast={this.state.weatherData}/> : null}
+            </div>            
+        )
+    }
 }
 
 const View = ({view}) => {
-    const [ { timezone_offset, current }, lastupd, cityName, localData, localTime] = view;    
+    const { weatherData: { timezone_offset, current }, cityName, localTime, localData, lastupd} = view;    
     const { temp, feels_like, humidity, pressure, clouds, dew_point, 
         visibility, uvi, wind_speed, wind_deg, sunrise, sunset, weather } = current;    
         
