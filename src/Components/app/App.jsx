@@ -1,5 +1,5 @@
 
-import InputSelect from '../input/InputSelect';
+import InputSelect from '../inputSelect/InputSelect';
 import CurrentWeather from '../currentWeather/currentWeather';
 
 import './App.css';
