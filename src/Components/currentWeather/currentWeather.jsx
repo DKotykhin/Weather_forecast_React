@@ -153,7 +153,29 @@ const View = ({ view }) => {
             .format("LT"),
         descr = weather[0]["description"],
         icon = weather[0]["icon"];
-        
+
+    const currentItem_1 = [
+        { name: 'Местное время: ', value: localTime },
+        { name: 'Рассвет: ', value: newSunrise },
+        { name: 'Закат: ', value: newSunset },
+        { name: 'Длительность дня: ', value: dayDuration },
+    ]
+
+    const currentItem_2 = [
+        { name: 'Температура: ', value: newTemp + ' °С' },
+        { name: 'Чувствуется как: ', value: newFeels + ' °С' },
+        { name: 'Влажность: ', value: humidity + ' %' },
+        { name: 'Давление: ', value: newPressure + ' мм рт ст' },
+        { name: 'Точка росы: ', value: newDewPoint + ' °С' },
+    ]
+
+    const currentItem_3 = [
+        { name: 'Скорость ветра: ', value: newWindSpeed + ' м/с' },
+        { name: 'Ветер: ', value: newWindDirect },
+        { name: 'Облачность: ', value: clouds + ' %' },
+        { name: 'Видимость: ', value: newVis + ' км' },        
+        { name: 'UV индекс: ', value: uvi },
+    ]        
 
     return (
         <>
@@ -177,70 +199,41 @@ const View = ({ view }) => {
                                 {localData}
                             </td>
                         </tr>
-                        <tr>
-                            <td>Местное время: </td>
-                            <td>{localTime}</td>
-                        </tr>
-                        <tr>
-                            <td>Рассвет: </td>
-                            <td>{newSunrise}</td>
-                        </tr>
-                        <tr>
-                            <td>Закат: </td>
-                            <td>{newSunset}</td>
-                        </tr>
-                        <tr>
-                            <td>Длительность дня: </td>
-                            <td>{dayDuration}</td>
-                        </tr>
+                        {
+                            currentItem_1.map((item, i) => {
+                                return (
+                                <tr>
+                                    <td key = {i}>{item.name}</td>
+                                    <td>{item.value}</td>
+                                </tr>
+                                )})
+                        }
                     </table>
                 </Grid>
                 <Grid item xs={12} md={6} xl={3}>
                     <table className="table">
-                        <tr>
-                            <td>Температура: </td>
-                            <td>{newTemp} °С</td>
-                        </tr>
-                        <tr>
-                            <td>Чувствуется как: </td>
-                            <td>{newFeels} °С</td>
-                        </tr>
-                        <tr>
-                            <td>Влажность: </td>
-                            <td>{humidity} %</td>
-                        </tr>
-                        <tr>
-                            <td>Давление: </td>
-                            <td>{newPressure} мм рт ст</td>
-                        </tr>
-                        <tr>
-                            <td>Точка росы: </td>
-                            <td>{newDewPoint} °С</td>
-                        </tr>
+                    {
+                        currentItem_2.map((item, i) => {
+                            return (
+                            <tr>
+                                <td key = {i}>{item.name}</td>
+                                <td>{item.value}</td>
+                            </tr>
+                            )})
+                    }                         
                     </table>
                 </Grid>
                 <Grid item xs={12} md={6} xl={3}>
                     <table className="table">
-                        <tr>
-                            <td>Скорость ветра: </td>
-                            <td>{newWindSpeed} м/с</td>
-                        </tr>
-                        <tr>
-                            <td>Ветер: </td>
-                            <td>{newWindDirect}</td>
-                        </tr>
-                        <tr>
-                            <td>Облачность: </td>
-                            <td>{clouds} %</td>
-                        </tr>
-                        <tr>
-                            <td>Видимость: </td>
-                            <td>{newVis} км</td>
-                        </tr>
-                        <tr>
-                            <td>UV индекс: </td>
-                            <td>{uvi}</td>
-                        </tr>
+                    {
+                        currentItem_3.map((item, i) => {
+                            return (
+                            <tr>
+                                <td key = {i}>{item.name}</td>
+                                <td>{item.value}</td>
+                            </tr>
+                            )})
+                    }
                     </table>
                 </Grid>
             </Grid>
@@ -280,6 +273,18 @@ const Forecast = ({ forecast }) => {
                     descr = weather[0]["description"],
                     icon = weather[0]["icon"];
 
+                const forecastItem = [
+                    { name: 'Днём: ', value: dayTemp + ' °С' },
+                    { name: 'Ночью: ', value: nightTemp + ' °С' },
+                    { name: 'Влажность: ', value: humidity + ' %' },
+                    { name: 'Давление: ', value: newPressure + ' мм рт ст' },
+                    { name: 'Облачность: ', value: clouds + ' %' },
+                    { name: 'Осадки: ', value: rain ? rain.toFixed (1) + ' мм' : 0 },
+                    { name: 'Скорость ветра: ', value: newWindSpeed + ' м/с' },
+                    { name: 'Ветер: ', value: newWindDirect },
+                    { name: 'UV индекс: ', value: uvi },
+                ]
+
                 return (
                     <Grid item xs={12} md={6} xl={3}>
                         <table
@@ -313,42 +318,15 @@ const Forecast = ({ forecast }) => {
                             <tr>
                                 <td colspan="2" style={{ height: "20px" }}></td>
                             </tr>
-                            <tr>
-                                <td>Днём: </td>
-                                <td>{dayTemp} °С</td>
-                            </tr>
-                            <tr>
-                                <td>Ночью: </td>
-                                <td>{nightTemp} °С</td>
-                            </tr>
-                            <tr>
-                                <td>Влажность: </td>
-                                <td>{humidity} %</td>
-                            </tr>
-                            <tr>
-                                <td>Давление: </td>
-                                <td>{newPressure} мм рт ст</td>
-                            </tr>
-                            <tr>
-                                <td>Облачность: </td>
-                                <td>{clouds} %</td>
-                            </tr>
-                            <tr>
-                                <td>Осадки: </td>
-                                <td>{rain ? rain.toFixed (1) + ' мм' : 0}</td>
-                            </tr>
-                            <tr>
-                                <td>Скорость ветра: </td>
-                                <td>{newWindSpeed} м/с</td>
-                            </tr>
-                            <tr>
-                                <td>Ветер: </td>
-                                <td>{newWindDirect}</td>
-                            </tr>
-                            <tr>
-                                <td>UV индекс: </td>
-                                <td>{uvi}</td>
-                            </tr>
+                            {
+                                forecastItem.map((item, i) => {
+                                    return (
+                                    <tr>
+                                        <td key = {i}>{item.name}</td>
+                                        <td>{item.value}</td>
+                                    </tr>
+                                    )})
+                            }
                         </table>
                     </Grid>
                 );
