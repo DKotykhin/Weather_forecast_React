@@ -7,7 +7,7 @@ import "moment/locale/ru";
 import { Grid } from "@mui/material";
 
 import "./CurrentWeather.css";
-const getData = new GetData();
+
 
 const CurrentWeather = ({ cityId, flagId }) => {
     const [loading, setLoading] = useState(false),
@@ -18,7 +18,8 @@ const CurrentWeather = ({ cityId, flagId }) => {
         [localData, setLocalData] = useState(null),
         [lastupd, setLastupd] = useState(null),
         [weatherData, setWeatherData] = useState({});
-    
+
+    const { getCityCoordinates, getCityWeather } = GetData()    
     
     useEffect(() => {
          getCity();                 
@@ -58,15 +59,13 @@ const CurrentWeather = ({ cityId, flagId }) => {
     };
 
     const getCoordinates = () => {        
-            getData
-                .getCityCoordinates(cityId)
+            getCityCoordinates(cityId)
                 .then((coords) => getWeather(coords))
                 .catch(onError);        
     };
 
     const getWeather = (coords) => {
-        getData
-            .getWeather(coords.latitude, coords.lontitude)
+        getCityWeather(coords.latitude, coords.lontitude)
             .then((weatherData) => {                
                 setLoading(false);
                 setLoaded(true);                
@@ -170,11 +169,11 @@ const View = ({ view }) => {
     ]
 
     const currentItem_3 = [
-        { name: 'Скорость ветра: ', value: newWindSpeed + ' м/с' },
+        { name: 'Скорость ветра: ', value: newWindSpeed ? newWindSpeed + ' м/с' : 'безветренно' },
         { name: 'Ветер: ', value: newWindDirect },
         { name: 'Облачность: ', value: clouds + ' %' },
         { name: 'Видимость: ', value: newVis + ' км' },        
-        { name: 'UV индекс: ', value: uvi },
+        { name: 'UV индекс: ', value: uvi ? uvi.toFixed (1) : uvi },
     ]        
 
     return (
@@ -280,9 +279,9 @@ const Forecast = ({ forecast }) => {
                     { name: 'Давление: ', value: newPressure + ' мм рт ст' },
                     { name: 'Облачность: ', value: clouds + ' %' },
                     { name: 'Осадки: ', value: rain ? rain.toFixed (1) + ' мм' : 0 },
-                    { name: 'Скорость ветра: ', value: newWindSpeed + ' м/с' },
+                    { name: 'Скорость ветра: ', value: newWindSpeed ? newWindSpeed + ' м/с' : 'безветренно' },
                     { name: 'Ветер: ', value: newWindDirect },
-                    { name: 'UV индекс: ', value: uvi },
+                    { name: 'UV индекс: ', value: uvi ? uvi.toFixed (1) : uvi },
                 ]
 
                 return (
