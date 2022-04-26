@@ -11,10 +11,10 @@ class GetData {
                 appid: this._appKey
             }
         });
-        return this.getCoords(result.data[0])
+        return this.transformCoords(result.data[0])
     }
     
-    currentWeather = async (latitude, lontitude) => {
+    getWeather = async (latitude, lontitude) => {
         const result = await axios.get(
             'https://api.openweathermap.org/data/2.5/onecall?&lang=ru&}', {
             params: {
@@ -26,7 +26,7 @@ class GetData {
         return result.data
     }
 
-    getCoords = (coords) => {
+    transformCoords = (coords) => {
         return {
             latitude: coords.lat,
             lontitude: coords.lon,

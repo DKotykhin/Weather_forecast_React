@@ -10,8 +10,8 @@ const InputSelect = (props) => {
 
   const [city, setCity] = React.useState('');
   const [flag, setFlag] = React.useState(false);
-  const cityArray = ['Киев', 'Варшава', 'Берлин', 'Лондон', 'Амстердам',
-  'Гонолулу', 'Лос-Анджелес', 'Сингапур']    
+  const cityArray = ['Киев', 'Варшава', 'Берлин', 'Лондон', 'Торонто',
+  'Гонолулу', 'Flensburg', 'Сингапур']    
   
   const handleChange = (event) => {
     const city = event.target.value;

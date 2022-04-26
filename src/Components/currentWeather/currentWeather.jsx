@@ -66,7 +66,7 @@ const CurrentWeather = ({ cityId, flagId }) => {
 
     const getWeather = (coords) => {
         getData
-            .currentWeather(coords.latitude, coords.lontitude)
+            .getWeather(coords.latitude, coords.lontitude)
             .then((weatherData) => {                
                 setLoading(false);
                 setLoaded(true);                
