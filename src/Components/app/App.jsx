@@ -1,33 +1,19 @@
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import InputSelect from '../inputSelect/InputSelect';
-import CurrentWeather from '../currentWeather/currentWeather';
+import MainPage from '../pages/MainPage';
+import Page404 from '../pages/404'
 
 import './App.css';
-import React from 'react';
 
 const App = () => {
-    const [city, setCity] = React.useState('')
-    const [flag, setFlag] = React.useState()
-    
-    const onUpdate = (city) => {        
-      setCity(city)  
-      console.log('app: ' + city)      
-    }
-
-    const onFlag = (flag) => {
-      setFlag(flag);
-      console.log('app: ' + flag)
-    }
 
     return (
-        <div>          
-          <InputSelect
-            onCityUpdate={onUpdate}
-            onCityFlag={onFlag}/>
-          <CurrentWeather
-            cityId={city}
-            flagId={flag}/>
-        </div>
+      <Router>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+      </Router>        
     );   
 }
 
