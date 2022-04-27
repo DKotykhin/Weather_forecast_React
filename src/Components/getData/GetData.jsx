@@ -11,7 +11,7 @@ const GetData = () => {
                 appid: _appKey
             }
         });
-        return transformCoords(result.data[0])               
+        return result.data[0]             
     }
     
     const getCityWeather = async (latitude, lontitude) => {        
@@ -25,13 +25,7 @@ const GetData = () => {
         });       
         return result.data               
     }
-
-    const transformCoords = (coords) => {
-        return {
-            latitude: coords.lat,
-            lontitude: coords.lon,
-        }
-    }
+   
     return { getCityCoordinates, getCityWeather }  
 }
 

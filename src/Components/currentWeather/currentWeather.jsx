@@ -65,7 +65,7 @@ const CurrentWeather = ({ cityId, flagId }) => {
     };
 
     const getWeather = (coords) => {
-        getCityWeather(coords.latitude, coords.lontitude)
+        getCityWeather(coords.lat, coords.lon)
             .then((weatherData) => {                
                 setLoading(false);
                 setLoaded(true);                
@@ -87,8 +87,8 @@ const CurrentWeather = ({ cityId, flagId }) => {
             {error ? <ErrorMessage /> : null}
             {loading ? <Spinner /> : null}
             {!(error || loading) && loaded ? (
-                <View
-                    view={[
+                <CurrentView
+                    currentdata={[
                         weatherData,
                         lastupd,
                         cityName,
@@ -98,20 +98,20 @@ const CurrentWeather = ({ cityId, flagId }) => {
                 />
             ) : null}
             {!(error || loading) && loaded ? (
-                <Forecast forecast={weatherData} />
+                <ForecastView forecastdata={weatherData} />
             ) : null}
         </div>
     );
 };
 
-const View = ({ view }) => {
+const CurrentView = ({ currentdata }) => {
     const [
         { timezone_offset, current },
         lastupd,
         cityName,
         localData,
         localTime,
-    ] = view;
+    ] = currentdata;
     const {
         temp,
         feels_like,
@@ -171,7 +171,7 @@ const View = ({ view }) => {
     const currentItem_3 = [
         { name: 'Скорость ветра: ', value: newWindSpeed ? newWindSpeed + ' м/с' : 'безветренно' },
         { name: 'Ветер: ', value: newWindDirect },
-        { name: 'Облачность: ', value: clouds + ' %' },
+        { name: 'Облачность: ', value: clouds ? clouds + ' %' : 'ясно' },
         { name: 'Видимость: ', value: newVis + ' км' },        
         { name: 'UV индекс: ', value: uvi ? uvi.toFixed (1) : uvi },
     ]        
@@ -240,8 +240,8 @@ const View = ({ view }) => {
     );
 };
 
-const Forecast = ({ forecast }) => {
-    const { timezone_offset, daily } = forecast;
+const ForecastView = ({ forecastdata }) => {
+    const { timezone_offset, daily } = forecastdata;
 
     return (
         <Grid container>
@@ -277,7 +277,7 @@ const Forecast = ({ forecast }) => {
                     { name: 'Ночью: ', value: nightTemp + ' °С' },
                     { name: 'Влажность: ', value: humidity + ' %' },
                     { name: 'Давление: ', value: newPressure + ' мм рт ст' },
-                    { name: 'Облачность: ', value: clouds + ' %' },
+                    { name: 'Облачность: ', value: clouds ? clouds + ' %' : 'ясно' },
                     { name: 'Осадки: ', value: rain ? rain.toFixed (1) + ' мм' : 0 },
                     { name: 'Скорость ветра: ', value: newWindSpeed ? newWindSpeed + ' м/с' : 'безветренно' },
                     { name: 'Ветер: ', value: newWindDirect },
