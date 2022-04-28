@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AppHeader from '../appHeader/AppHeader'
 import InputSelect from '../inputSelect/InputSelect';
 import CurrentWeather from '../currentWeather/currentWeather';
 
@@ -18,6 +19,7 @@ const MainPage = () => {
     }
     return (
         <div>
+          <AppHeader/>
             <InputSelect 
                 onCityUpdate={onUpdate} 
                 onCityFlag={onFlag} />

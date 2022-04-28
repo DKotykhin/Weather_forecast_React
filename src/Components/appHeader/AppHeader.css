@@ -1,0 +1,10 @@
+.header {
+    font-size: 40px;
+    color: brown;
+    font-weight: bold;
+    margin: 0;
+}
+
+.line {
+    border-bottom: 1px solid silver;
+}
