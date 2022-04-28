@@ -6,7 +6,7 @@ import moment from "moment";
 import "moment/locale/ru";
 import { Grid } from "@mui/material";
 
-import "./CurrentWeather.css";
+import "./currentWeather.css";
 
 const CurrentWeather = ({ cityId, flagId }) => {
     const [loading, setLoading] = useState(false),
