@@ -10,7 +10,7 @@ const App = () => {
     return (
       <Router>
         <Routes>
-          <Route path="/" element={<MainPage />} />
+          <Route path="/" exact element={<MainPage />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </Router>        

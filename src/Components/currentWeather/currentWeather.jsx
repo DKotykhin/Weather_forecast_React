@@ -327,8 +327,11 @@ const ForecastView = ({ forecastdata }) => {
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2" style={{ height: "20px" }}></td>
+                                <td colspan="2" style={{ height: "10px" }}></td>                                
                             </tr>
+                            {/* <tr>
+                                <td colspan="2" className="line"/>
+                            </tr>                             */}
                             {
                                 forecastItem.map((item, i) => {
                                     return (
