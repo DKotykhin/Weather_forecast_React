@@ -3,6 +3,7 @@ import React from 'react';
 import AppHeader from '../appHeader/AppHeader'
 import InputSelect from '../inputSelect/InputSelect';
 import CurrentWeather from '../currentWeather/currentWeather';
+import AppFooter from '../appFooter/AppFooter';
 
 const MainPage = () => {
     const [city, setCity] = React.useState()
@@ -18,7 +19,8 @@ const MainPage = () => {
       console.log('app: ' + flag)
     }
     return (
-        <div>
+      <>
+        <div style={{'minHeight': 'calc(100vh - 80px)'}}>
           <AppHeader/>
             <InputSelect 
                 onCityUpdate={onUpdate} 
@@ -27,6 +29,8 @@ const MainPage = () => {
                 cityId={city} 
                 flagId={flag} />
         </div>
+          <AppFooter/>
+      </>
     );
 };
 
