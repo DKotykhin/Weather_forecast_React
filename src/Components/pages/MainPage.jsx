@@ -4,7 +4,7 @@ import InputSelect from '../inputSelect/InputSelect';
 import CurrentWeather from '../currentWeather/currentWeather';
 
 const MainPage = () => {
-    const [city, setCity] = React.useState('')
+    const [city, setCity] = React.useState()
     const [flag, setFlag] = React.useState()
     
     const onUpdate = (city) => {        

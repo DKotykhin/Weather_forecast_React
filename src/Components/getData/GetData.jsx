@@ -16,7 +16,7 @@ const GetData = () => {
     
     const getCityWeather = async (latitude, lontitude) => {        
         const result = await axios.get(
-            'https://api.openweathermap.org/data/2.5/onecall?&lang=ru&}', {
+            'https://api.openweathermap.org/data/2.5/onecall?&lang=ru&', {
             params: {
                 lat: latitude,
                 lon: lontitude,
@@ -25,8 +25,20 @@ const GetData = () => {
         });       
         return result.data               
     }
+
+    const getCityPollution = async (latitude, lontitude) => {        
+        const result = await axios.get(
+            'https://api.openweathermap.org/data/2.5/air_pollution?&lang=ru&', {
+            params: {
+                lat: latitude,
+                lon: lontitude,
+                appid: _appKey   
+            }
+        });       
+        return result.data.list[0]              
+    }
    
-    return { getCityCoordinates, getCityWeather }  
+    return { getCityCoordinates, getCityWeather, getCityPollution }  
 }
 
 export default GetData;

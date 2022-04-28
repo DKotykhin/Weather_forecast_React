@@ -8,7 +8,6 @@ import { Grid } from "@mui/material";
 
 import "./CurrentWeather.css";
 
-
 const CurrentWeather = ({ cityId, flagId }) => {
     const [loading, setLoading] = useState(false),
         [loaded, setLoaded] = useState(false),
@@ -19,7 +18,7 @@ const CurrentWeather = ({ cityId, flagId }) => {
         [lastupd, setLastupd] = useState(null),
         [weatherData, setWeatherData] = useState({});
 
-    const { getCityCoordinates, getCityWeather } = GetData()    
+    const { getCityCoordinates, getCityWeather, getCityPollution } = GetData()    
     
     useEffect(() => {
          getCity();                 
@@ -60,13 +59,16 @@ const CurrentWeather = ({ cityId, flagId }) => {
 
     const getCoordinates = () => {        
             getCityCoordinates(cityId)
-                .then((coords) => getWeather(coords))
+                .then((coords) => {
+                    getWeather(coords)
+                    getPollution(coords)
+                })
                 .catch(onError);        
     };
 
     const getWeather = (coords) => {
         getCityWeather(coords.lat, coords.lon)
-            .then((weatherData) => {                
+            .then(weatherData => {                
                 setLoading(false);
                 setLoaded(true);                
                 setWeatherData(weatherData);
@@ -74,7 +76,14 @@ const CurrentWeather = ({ cityId, flagId }) => {
             })
             .catch(onError);
     };
-    
+
+    const getPollution = (coords) => {
+        getCityPollution(coords.lat, coords.lon)
+            .then(pollutionData => {
+                console.log(pollutionData)
+            })
+            .catch(onError);
+    }    
 
     const onError = () => {
         setLoading(false);
@@ -253,6 +262,7 @@ const ForecastView = ({ forecastdata }) => {
                     clouds,
                     rain,
                     uvi,
+                    pop,
                     wind_speed,
                     wind_deg,
                     dt,
@@ -263,6 +273,7 @@ const ForecastView = ({ forecastdata }) => {
                     dayTemp = Math.round(day - 273),
                     nightTemp = Math.round(night - 273),
                     newWindSpeed = Math.round(wind_speed),
+                    newPop = Math.round(pop * 100),
                     newWindDirect = WindDirect(wind_deg),
                     forecastDay = moment
                         .unix(dt)
@@ -274,14 +285,15 @@ const ForecastView = ({ forecastdata }) => {
 
                 const forecastItem = [
                     { name: 'Днём: ', value: dayTemp + ' °С' },
-                    { name: 'Ночью: ', value: nightTemp + ' °С' },
-                    { name: 'Влажность: ', value: humidity + ' %' },
+                    { name: 'Ночью: ', value: nightTemp + ' °С' },                    
                     { name: 'Давление: ', value: newPressure + ' мм рт ст' },
                     { name: 'Облачность: ', value: clouds ? clouds + ' %' : 'ясно' },
+                    { name: 'Влажность: ', value: humidity + ' %' },
                     { name: 'Осадки: ', value: rain ? rain.toFixed (1) + ' мм' : 0 },
+                    { name: 'Вероятность: ', value: newPop + ' %' },
                     { name: 'Скорость ветра: ', value: newWindSpeed ? newWindSpeed + ' м/с' : 'безветренно' },
                     { name: 'Ветер: ', value: newWindDirect },
-                    { name: 'UV индекс: ', value: uvi ? uvi.toFixed (1) : uvi },
+                    { name: 'UV индекс: ', value: uvi ? uvi.toFixed (1) : uvi },                    
                 ]
 
                 return (
