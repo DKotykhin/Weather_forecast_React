@@ -87,8 +87,8 @@ const ForecastView = ({ forecastdata }) => {
               </tr>
               {forecastItem.map((item, i) => {
                 return (
-                  <tr>
-                    <td key={i}>{item.name}</td>
+                  <tr key={i}>
+                    <td>{item.name}</td>
                     <td>{item.value}</td>
                   </tr>
                 );

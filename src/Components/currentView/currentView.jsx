@@ -70,8 +70,8 @@ const CurrentView = ({ currentdata }) => {
             </tr>
             {currentItem_1.map((item, i) => {
               return (
-                <tr>
-                  <td key={i}>{item.name}</td>
+                <tr key={i}>
+                  <td>{item.name}</td>
                   <td>{item.value}</td>
                 </tr>
               );
@@ -82,8 +82,8 @@ const CurrentView = ({ currentdata }) => {
           <table className="table">
             {currentItem_2.map((item, i) => {
               return (
-                <tr>
-                  <td key={i}>{item.name}</td>
+                <tr key={i}>
+                  <td>{item.name}</td>
                   <td>{item.value}</td>
                 </tr>
               );
@@ -94,8 +94,8 @@ const CurrentView = ({ currentdata }) => {
           <table className="table">
             {currentItem_3.map((item, i) => {
               return (
-                <tr>
-                  <td key={i}>{item.name}</td>
+                <tr key={i}>
+                  <td>{item.name}</td>
                   <td>{item.value}</td>
                 </tr>
               );
