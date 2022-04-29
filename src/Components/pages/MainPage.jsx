@@ -20,7 +20,7 @@ const MainPage = () => {
     }
     return (
       <>
-        <div style={{'minHeight': 'calc(100vh - 80px)'}}>
+        <div style={{'minHeight': 'calc(100vh - 120px)'}}>
           <AppHeader/>
             <InputSelect 
                 onCityUpdate={onUpdate} 

@@ -1,9 +1,12 @@
-import './AppFooter.css'
+import { Container } from "@mui/material";
+import "./AppFooter.css";
 
 const AppFooter = () => {
     return (
-        <p className="footer"/>
-    )
-}
+        <Container>
+            <div className="footer"></div>            
+        </Container>
+    );
+};
 
 export default AppFooter;

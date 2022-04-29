@@ -1,4 +1,4 @@
 .footer {
-    margin: 0;
-    border: solid 20px gainsboro;
+    border-bottom: solid 1px silver;
+    margin-bottom: 50px;
 }
