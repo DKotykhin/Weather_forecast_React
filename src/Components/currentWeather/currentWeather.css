@@ -6,7 +6,7 @@
     border: solid 2px brown;
     border-radius: 10px;
     min-width: 345px;
-    min-height: 255px;
+    min-height: 250px;
     max-width: fit-content;
     background-color: #a4ffe1;
     color: brown;
@@ -36,13 +36,13 @@
     color: brown;
 }
 
-.table>p {
-    text-align: center;
-    font-weight: bold;
-    color: brown;
-    margin: 0;
+.table>tbody>tr>td,
+.table>thead>tr>td {
+    padding: 5px;
 }
 
-.table>tbody>tr>td {
-    padding: 5px;
+.table>thead {
+    font-weight: bold;
+    color: brown;
+    text-align: center;
 }

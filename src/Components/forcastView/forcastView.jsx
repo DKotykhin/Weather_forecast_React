@@ -58,19 +58,19 @@ const ForecastView = ({ forecastdata }) => {
               className="table"
               style={{ "backgroundColor": "gainsboro" }}
             >
-              <tbody>
+              <thead>
                 <tr>
-                  <td colSpan="2" style={{ textAlign: "center" }}>
+                  <td colSpan="2">
                     Прогноз погоды
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan="2" style={{ textAlign: "center" }}>
+                  <td colSpan="2">
                     {forecastDay}
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan="2" style={{ textAlign: "center" }}>
+                  <td colSpan="2">
                     <img
                       src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
                       alt={icon}
@@ -78,13 +78,15 @@ const ForecastView = ({ forecastdata }) => {
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan="2" style={{ textAlign: "center" }}>
+                  <td colSpan="2">
                     {descr}
                   </td>
                 </tr>
                 <tr>
-                  <td colSpan="2" style={{ height: "20px" }}></td>
+                  <td colSpan="2" style={{ height: "10px" }}></td>
                 </tr>
+                </thead>
+                <tbody>
                 {forecastItem.map((item, i) => {
                   return (
                     <tr key={i}>

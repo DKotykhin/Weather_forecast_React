@@ -62,13 +62,15 @@ const CurrentView = ({ currentdata }) => {
         </Grid>
         <Grid item xs={12} md={6} xl={3}>
           <table className="table">
-            <tbody>
+            <thead>
               <tr>
                 {/* <td>Сегодня: </td> */}
-                <td colSpan="2" style={{ textAlign: "center" }}>
+                <td colSpan="2">
                   {localData}
                 </td>
               </tr>
+            </thead>
+            <tbody>
               {currentItem_1.map((item, i) => {
                 return (
                   <tr key={i}>

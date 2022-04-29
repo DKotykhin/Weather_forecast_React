@@ -2,5 +2,6 @@
     font-size: 40px;
     color: #a52a2a;
     font-weight: 700;
-    padding: 10px;
+    padding: 20px;
+    border-bottom: 1px solid #808080;
 }
