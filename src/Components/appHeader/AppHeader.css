@@ -1,11 +1,6 @@
 .header {
     font-size: 40px;
-    color: brown;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.line {
-    padding: 20px;
-    border-bottom: 1px solid silver;
+    color: #a52a2a;
+    font-weight: 700;
+    padding: 10px;
 }

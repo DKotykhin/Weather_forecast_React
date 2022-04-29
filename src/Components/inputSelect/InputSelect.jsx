@@ -10,7 +10,7 @@ const InputSelect = (props) => {
   const [city, setCity] = React.useState("");
   const [flag, setFlag] = React.useState(false);
   const cityArray = [
-    "Киев",
+    "Харьков",
     "Варшава",
     "Берлин",
     "Лондон",
