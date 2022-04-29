@@ -24,7 +24,7 @@
     background-color: antiquewhite;
 }
 
-.table>tr>td:last-child {
+.table>tbody>tr>td:last-child {
     font-weight: bold;
     color: brown;
     padding: 3px 0 3px 10px;
@@ -43,6 +43,6 @@
     margin: 0;
 }
 
-.table>tr>td {
+.table>tbody>tr>td {
     padding: 5px;
 }

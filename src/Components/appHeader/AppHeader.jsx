@@ -5,9 +5,10 @@ import { Container } from "@mui/material";
 
 const Header = () => {
     return (
-        <Container className="header">           
-            <p><img src={weather_image} alt={"weather"}/> Weather Forecast</p>
-            <p className="line"/>            
+        <Container className="header">
+            <div className="line">
+                <img src={weather_image} alt={"weather"} /> Weather Forecast
+            </div>
         </Container>
     );
 };

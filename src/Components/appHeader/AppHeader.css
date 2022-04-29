@@ -2,9 +2,10 @@
     font-size: 40px;
     color: brown;
     font-weight: bold;
-    margin: 0;
+    margin-top: 20px;
 }
 
 .line {
+    padding: 20px;
     border-bottom: 1px solid silver;
 }

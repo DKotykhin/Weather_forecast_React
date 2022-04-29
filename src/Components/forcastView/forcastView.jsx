@@ -53,46 +53,47 @@ const ForecastView = ({ forecastdata }) => {
         ];
 
         return (
-          <Grid item xs={12} md={6} xl={3}>
-            <table
-              key={i}
+          <Grid key={i} item xs={12} md={6} xl={3}>
+            <table              
               className="table"
-              style={{ "background-color": "gainsboro" }}
+              style={{ "backgroundColor": "gainsboro" }}
             >
-              <tr>
-                <td colspan="2" style={{ textAlign: "center" }}>
-                  Прогноз погоды
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" style={{ textAlign: "center" }}>
-                  {forecastDay}
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" style={{ textAlign: "center" }}>
-                  <img
-                    src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
-                    alt={icon}
-                  />
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" style={{ textAlign: "center" }}>
-                  {descr}
-                </td>
-              </tr>
-              <tr>
-                <td colspan="2" style={{ height: "20px" }}></td>
-              </tr>
-              {forecastItem.map((item, i) => {
-                return (
-                  <tr key={i}>
-                    <td>{item.name}</td>
-                    <td>{item.value}</td>
-                  </tr>
-                );
-              })}
+              <tbody>
+                <tr>
+                  <td colSpan="2" style={{ textAlign: "center" }}>
+                    Прогноз погоды
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="2" style={{ textAlign: "center" }}>
+                    {forecastDay}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="2" style={{ textAlign: "center" }}>
+                    <img
+                      src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
+                      alt={icon}
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="2" style={{ textAlign: "center" }}>
+                    {descr}
+                  </td>
+                </tr>
+                <tr>
+                  <td colSpan="2" style={{ height: "20px" }}></td>
+                </tr>
+                {forecastItem.map((item, i) => {
+                  return (
+                    <tr key={i}>
+                      <td>{item.name}</td>
+                      <td>{item.value}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
             </table>
           </Grid>
         );

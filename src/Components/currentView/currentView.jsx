@@ -62,44 +62,50 @@ const CurrentView = ({ currentdata }) => {
         </Grid>
         <Grid item xs={12} md={6} xl={3}>
           <table className="table">
-            <tr>
-              {/* <td>Сегодня: </td> */}
-              <td colspan="2" style={{ textAlign: "center" }}>
-                {localData}
-              </td>
-            </tr>
-            {currentItem_1.map((item, i) => {
-              return (
-                <tr key={i}>
-                  <td>{item.name}</td>
-                  <td>{item.value}</td>
-                </tr>
-              );
-            })}
+            <tbody>
+              <tr>
+                {/* <td>Сегодня: </td> */}
+                <td colSpan="2" style={{ textAlign: "center" }}>
+                  {localData}
+                </td>
+              </tr>
+              {currentItem_1.map((item, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{item.name}</td>
+                    <td>{item.value}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </Grid>
         <Grid item xs={12} md={6} xl={3}>
           <table className="table">
-            {currentItem_2.map((item, i) => {
-              return (
-                <tr key={i}>
-                  <td>{item.name}</td>
-                  <td>{item.value}</td>
-                </tr>
-              );
-            })}
+            <tbody>
+              {currentItem_2.map((item, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{item.name}</td>
+                    <td>{item.value}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </Grid>
         <Grid item xs={12} md={6} xl={3}>
           <table className="table">
-            {currentItem_3.map((item, i) => {
-              return (
-                <tr key={i}>
-                  <td>{item.name}</td>
-                  <td>{item.value}</td>
-                </tr>
-              );
-            })}
+            <tbody>
+              {currentItem_3.map((item, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{item.name}</td>
+                    <td>{item.value}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
           </table>
         </Grid>
       </Grid>
