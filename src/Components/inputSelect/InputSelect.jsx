@@ -3,22 +3,13 @@ import React from "react";
 import { InputLabel, MenuItem, FormControl } from "@mui/material";
 import { Select } from "@mui/material";
 //import { Button, Stack } from "@mui/material";
+import cityList from './cityList.json'
 
 import "./InputSelect.css";
 
 const InputSelect = (props) => {
     const [city, setCity] = React.useState("");
     const [flag, setFlag] = React.useState(false);
-    const cityArray = [
-        "Харьков",
-        "Львов",
-        "Берлин",
-        "Лондон",
-        "Торонто",
-        "Гонолулу",
-        "Flensburg",
-        "Сингапур",
-    ];
 
     const selectChange = (event) => {
         const city = event.target.value;
@@ -44,7 +35,7 @@ const InputSelect = (props) => {
                     onChange={selectChange}
                     onClick={clickChange}
                 >
-                    {cityArray.map((item, i) => {
+                    {cityList.cities.map((item, i) => {
                         return (
                             <MenuItem key={i} value={item}>
                                 {item}

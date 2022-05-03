@@ -2,15 +2,12 @@ import { useState, useCallback } from "react";
 import { getCityCoordinates, getCityWeather, getCityPollution } from "../../api/getData/GetData";
 
 export const useFetchWeather = () => {
-    const [loading, setLoading] = useState(false);
-    const [loaded, setLoaded] = useState(false);
-    const [error, setError] = useState(false);
+    const [process, setProcess] = useState('waiting');
 
     const getWeather = useCallback(
         async(cityId) => {
             try {
-                setLoading(true);
-                setLoaded(false);
+                setProcess('loading')
 
                 const coords = await getCityCoordinates(cityId);
                 const { lat, lon } = coords;
@@ -20,22 +17,16 @@ export const useFetchWeather = () => {
                     getCityPollution(lat, lon),
                 ]);
 
-                setLoading(false);
-                setLoaded(true);
-
+                setProcess('loaded')
                 return { weatherData, pollutionData };
             } catch {
-                setLoading(false);
-                setError(true);
-                setLoaded(false);
-
+                setProcess('error')
                 console.log("error");
-
                 return null;
             }
             // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [getCityPollution, getCityWeather, getCityCoordinates]
     );
 
-    return { loading, loaded, error, getWeather };
+    return { process, getWeather };
 };

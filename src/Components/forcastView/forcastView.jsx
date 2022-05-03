@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material";
 import moment from "moment";
 import { windDirect } from "../../helpers/windDirection";
+import { tempCelsius } from "../../helpers/tempCelsius";
 
 const ForecastView = ({ forecastdata }) => {
   const { timezone_offset, daily } = forecastdata;
@@ -23,8 +24,8 @@ const ForecastView = ({ forecastdata }) => {
         } = item;
 
         const newPressure = Math.round(pressure / 1.333),
-          dayTemp = Math.round(day - 273),
-          nightTemp = Math.round(night - 273),
+          dayTemp = tempCelsius(day),
+          nightTemp = tempCelsius(night),
           newWindSpeed = Math.round(wind_speed),
           newPop = Math.round(pop * 100),
           newWindDirect = windDirect(wind_deg),

@@ -10,64 +10,84 @@ import ForecastView from "../forcastView/forcastView";
 import { useFetchWeather } from "./hooks";
 
 const CurrentWeather = ({ cityId, flagId }) => {
-  const [localTime, setLocalTime] = useState(null);
-  const [localData, setLocalData] = useState(null);
-  const [lastupd, setLastupd] = useState(null);
-  const [weatherData, setWeatherData] = useState({});
+    const [localTime, setLocalTime] = useState(null);
+    const [localData, setLocalData] = useState(null);
+    const [lastupd, setLastupd] = useState(null);
+    const [weatherData, setWeatherData] = useState({});
 
-  const { error, loaded, loading, getWeather } = useFetchWeather();
+    const { process, getWeather } = useFetchWeather();
 
-  useEffect(() => {
-    if (cityId) {
-      getWeather(cityId).then((weather) => {
-        if (!weather) return;
+    useEffect(() => {
+        if (cityId) {
+            getWeather(cityId).then((weather) => {
+                if (!weather) return;
 
-        setWeatherData(weather.weatherData);
-        console.log("pollutionData :>> ", weather.pollutionData);
-      });
-    }
-    console.log("hooks version");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [flagId, cityId]);
+                setWeatherData(weather.weatherData);
+                console.log("pollutionData :>> ", weather.pollutionData);
+                console.log("weatherData :>> ", weather.weatherData);
+            });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [flagId, cityId]);
 
-  useEffect(() => {
-    const timeOut = setInterval(() => updateTime(), 10000);
-    return () => clearInterval(timeOut);
-  });
+    useEffect(() => {
+        const timeOut = setInterval(() => updateTime(), 10000);
+        return () => clearInterval(timeOut);
+    });
 
-  useEffect(() => {
-    updateTime();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loaded]);
+    useEffect(() => {
+        updateTime();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [process === "loaded"]);
 
-  const updateTime = () => {
-    if (loaded) {
-      const {
-        timezone_offset,
-        current: { dt },
-      } = weatherData;
-      setLocalTime(moment.utc().add(timezone_offset, "seconds").format("LT"));
-      setLocalData(
-        moment.utc().add(timezone_offset, "seconds").format("dddd DD MMMM")
-      );
-      setLastupd(moment.unix(dt).startOf().fromNow());
-    }
-  };
+    const updateTime = () => {
+        if (process === "loaded") {
+            const {
+                timezone_offset,
+                current: { dt },
+            } = weatherData;
+            setLocalTime(
+                moment.utc().add(timezone_offset, "seconds").format("LT")
+            );
+            setLocalData(
+                moment
+                    .utc()
+                    .add(timezone_offset, "seconds")
+                    .format("dddd DD MMMM")
+            );
+            setLastupd(moment.unix(dt).startOf().fromNow());
+        }
+    };
 
-  return (
-    <div>
-      {error ? <ErrorMessage /> : null}
-      {loading ? <Spinner /> : null}
-      {!(error || loading) && loaded ? (
-        <CurrentView
-          currentdata={[weatherData, lastupd, cityId, localData, localTime]}
-        />
-      ) : null}
-      {!(error || loading) && loaded ? (
-        <ForecastView forecastdata={weatherData} />
-      ) : null}
-    </div>
-  );
+    const setContent = (process) => {
+        switch (process) {
+            case "waiting":
+                return null;
+            case "loading":
+                return <Spinner />;
+            case "loaded":
+                return (
+                    <>
+                        <CurrentView
+                            currentdata={[
+                                weatherData,
+                                lastupd,
+                                cityId,
+                                localData,
+                                localTime,
+                            ]}
+                        />
+                        <ForecastView forecastdata={weatherData} />
+                    </>
+                );
+            case "error":
+                return <ErrorMessage />;
+            default:
+                throw new Error("Unexpected process state");
+        }
+    };
+
+    return <div>{setContent(process)}</div>;
 };
 
 export default CurrentWeather;

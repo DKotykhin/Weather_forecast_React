@@ -10,12 +10,12 @@ const MainPage = () => {
 
   const onUpdate = (city) => {
     setCity(city);
-    console.log("app: " + city);
+    //console.log("app: " + city);
   };
 
   const onFlag = (flag) => {
     setFlag(flag);
-    console.log("app: " + flag);
+    //console.log("app: " + flag);
   };
   return (
     <div>

@@ -1,10 +1,10 @@
 import { Grid } from "@mui/material";
 
-import { getWeatherData, getWeatherParams } from "./data";
+import { getWeatherData, getWeatherParams } from "./currentData";
 
 const CurrentView = ({ currentdata }) => {
-  const [{ current }, lastupd, cityName, localData, localTime] = currentdata;
-
+  const [ weatherData, lastupd, cityName, localData, localTime] = currentdata;
+  const { current } = weatherData
   const { humidity, clouds, uvi } = current;
   const { descr, icon } = getWeatherData(current.weather);
   const {
@@ -14,12 +14,13 @@ const CurrentView = ({ currentdata }) => {
     newDewPoint,
     newWindSpeed,
     newWindDirect,
-    newVis,
+    newVisibility,
     newSunrise,
     newSunset,
     dayDuration,
-  } = getWeatherParams(current);
+  } = getWeatherParams(weatherData);
 
+  
   const currentItem_1 = [
     { name: "Местное время: ", value: localTime },
     { name: "Рассвет: ", value: newSunrise },
@@ -42,7 +43,7 @@ const CurrentView = ({ currentdata }) => {
     },
     { name: "Ветер: ", value: newWindDirect },
     { name: "Облачность: ", value: clouds ? clouds + " %" : "ясно" },
-    { name: "Видимость: ", value: newVis + " км" },
+    { name: "Видимость: ", value: newVisibility + " км" },
     { name: "UV индекс: ", value: uvi ? uvi.toFixed(1) : uvi },
   ];
 
