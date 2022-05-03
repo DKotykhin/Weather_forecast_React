@@ -8,8 +8,8 @@ export const getForecastData = (weather) => {
     return { descr, icon };
 };
 
-export const getForecastParams = (forecastdata) => {
-    const { timezone_offset, daily } = forecastdata;
+export const getForecastParams = (daily, forecastdata) => {
+    const { timezone_offset } = forecastdata;
     const {
         temp: { day, night },
         pressure,
@@ -29,7 +29,7 @@ export const getForecastParams = (forecastdata) => {
             .unix(dt)
             .utc()
             .add(timezone_offset, "seconds")
-            .format("dddd DD MMMM");
+            .format("dddd DD MMMM");    
 
     return {
         newPressure,

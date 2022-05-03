@@ -1,41 +1,45 @@
 import { Grid } from "@mui/material";
-import moment from "moment";
-import { windDirect } from "../../helpers/windDirection";
-import { tempCelsius } from "../../helpers/tempCelsius";
+
+import { getForecastParams, getForecastData} from './forecastData';
 
 const ForecastView = ({ forecastdata }) => {
-  const { timezone_offset, daily } = forecastdata;
+  const { daily } = forecastdata;
 
   return (
     <Grid container>
       {daily.map((item, i) => {
-        const {
-          temp: { day, night },
-          humidity,
-          pressure,
+        const {          
+          humidity,          
           clouds,
           rain,
-          uvi,
-          pop,
-          wind_speed,
-          wind_deg,
-          dt,
+          uvi,        
           weather,
         } = item;
 
-        const newPressure = Math.round(pressure / 1.333),
-          dayTemp = tempCelsius(day),
-          nightTemp = tempCelsius(night),
-          newWindSpeed = Math.round(wind_speed),
-          newPop = Math.round(pop * 100),
-          newWindDirect = windDirect(wind_deg),
-          forecastDay = moment
-            .unix(dt)
-            .utc()
-            .add(timezone_offset, "seconds")
-            .format("dddd DD MMMM"),
-          descr = weather[0]["description"],
-          icon = weather[0]["icon"];
+        const {
+          newPressure,
+          dayTemp,
+          nightTemp,
+          newWindSpeed,
+          newWindDirect,
+          newPop,
+          forecastDay,
+        } = getForecastParams(item, forecastdata);
+
+        // const newPressure = Math.round(pressure / 1.333),
+        //   dayTemp = tempCelsius(day),
+        //   nightTemp = tempCelsius(night),
+        //   newWindSpeed = Math.round(wind_speed),
+        //   newPop = Math.round(pop * 100),
+        //   newWindDirect = windDirect(wind_deg),
+        //   forecastDay = moment
+        //     .unix(dt)
+        //     .utc()
+        //     .add(timezone_offset, "seconds")
+        //     .format("dddd DD MMMM");
+          // descr = weather[0]["description"],
+          // icon = weather[0]["icon"];
+          const { descr, icon } = getForecastData(weather);
 
         const forecastItem = [
           { name: "Днём: ", value: dayTemp + " °С" },

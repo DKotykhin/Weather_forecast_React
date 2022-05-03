@@ -32,7 +32,7 @@ export const getWeatherParams = (weather) => {
 
     const newSunrise = formatTime(timezone_offset, sunrise);
     const newSunset = formatTime(timezone_offset, sunset);
-    const dayDuration = formatTime(timezone_offset, sunset - sunrise);
+    const dayDuration = formatTime(0, sunset - sunrise);
 
     return {
         newPressure,
