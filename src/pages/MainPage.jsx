@@ -6,22 +6,22 @@ import CurrentWeather from "../Components/currentWeather/currentWeather";
 
 const MainPage = () => {
   const [city, setCity] = React.useState();
-  const [flag, setFlag] = React.useState();
+  const [flag, setFlag] = React.useState(false);
 
-  const onUpdate = (city) => {
-    setCity(city);
+  const onSelect = (cityName) => {
+    setCity(cityName);
     //console.log("app: " + city);
   };
 
-  const onFlag = (flag) => {
-    setFlag(flag);
+  const onUpdate = () => {
+    setFlag(!flag);
     //console.log("app: " + flag);
   };
   return (
     <div>
       <AppHeader />
-      <InputSelect onCityUpdate={onUpdate} onCityFlag={onFlag} />
-      <CurrentWeather cityId={city} flagId={flag} />
+      <InputSelect citySelect={onSelect} cityUpdate={onUpdate} />
+      <CurrentWeather cityName={city} flag={flag} />
     </div>
   );
 };

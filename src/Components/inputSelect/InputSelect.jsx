@@ -8,20 +8,13 @@ import cityList from './cityList.json'
 import "./InputSelect.css";
 
 const InputSelect = (props) => {
-    const [city, setCity] = React.useState("");
-    const [flag, setFlag] = React.useState(false);
+    const [city, setCity] = React.useState('');    
 
-    const selectChange = (event) => {
-        const city = event.target.value;
-        setCity(city);
-        props.onCityUpdate(city);
+    const onCitySelect = (event) => {        
+        setCity(event.target.value);
+        props.citySelect(event.target.value);        
     };
-
-    const clickChange = () => {
-        setFlag(!flag);
-        props.onCityFlag(flag);
-    };
-
+      
     return (
         <div className="boxSelector">
             <FormControl color="success" style={{ width: 300 }}>
@@ -29,11 +22,11 @@ const InputSelect = (props) => {
                 <Select
                     variant="standard"
                     labelId="townLabel"
-                    id="townSelect"
+                    //id="townSelect"
                     value={city}
                     label="Выберите город"
-                    onChange={selectChange}
-                    onClick={clickChange}
+                    onChange={onCitySelect}
+                    onClick={props.cityUpdate}
                 >
                     {cityList.cities.map((item, i) => {
                         return (

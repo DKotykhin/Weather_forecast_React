@@ -2,23 +2,21 @@
     text-align: center;
     margin: 0 auto;
     margin-bottom: 30px;
-    padding: 0 20px;
     border: solid 2px brown;
     border-radius: 10px;
-    min-width: 345px;
+    width: 380px;
     min-height: 250px;
-    max-width: fit-content;
     background-color: #a4ffe1;
     color: brown;
 }
 
 .table {
     font-size: 20px;
-    min-width: 390px;
-    min-height: 255px;
+    width: 380px;
+    min-height: 250px;
     margin: 0 auto;
     margin-bottom: 30px;
-    padding: 20px;
+    padding: 10px;
     border: solid 2px brown;
     border-radius: 10px;
     background-color: antiquewhite;
@@ -27,7 +25,6 @@
 .table>tbody>tr>td:last-child {
     font-weight: bold;
     color: brown;
-    padding: 3px 0 3px 10px;
 }
 
 .lastupd {

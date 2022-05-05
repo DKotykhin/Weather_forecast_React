@@ -5,11 +5,11 @@ export const useFetchWeather = () => {
     const [process, setProcess] = useState('waiting');
 
     const getWeather = useCallback(
-        async(cityId) => {
+        async(cityName) => {
             try {
                 setProcess('loading')
 
-                const coords = await getCityCoordinates(cityId);
+                const coords = await getCityCoordinates(cityName);
                 const { lat, lon } = coords;
 
                 const [weatherData, pollutionData] = await Promise.all([

@@ -9,7 +9,7 @@ import "./currentWeather.css";
 import ForecastView from "../forcastView/forcastView";
 import { useFetchWeather } from "./hooks";
 
-const CurrentWeather = ({ cityId, flagId }) => {
+const CurrentWeather = ({ cityName, flag }) => {
     const [localTime, setLocalTime] = useState(null);
     const [localData, setLocalData] = useState(null);
     const [lastupd, setLastupd] = useState(null);
@@ -18,8 +18,8 @@ const CurrentWeather = ({ cityId, flagId }) => {
     const { process, getWeather } = useFetchWeather();
 
     useEffect(() => {
-        if (cityId) {
-            getWeather(cityId).then((weather) => {
+        if (cityName) {
+            getWeather(cityName).then((weather) => {
                 if (!weather) return;
 
                 setWeatherData(weather.weatherData);
@@ -28,7 +28,7 @@ const CurrentWeather = ({ cityId, flagId }) => {
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [flagId, cityId]);
+    }, [flag, cityName]);
 
     useEffect(() => {
         const timeOut = setInterval(() => updateTime(), 10000);
@@ -72,7 +72,7 @@ const CurrentWeather = ({ cityId, flagId }) => {
                             currentdata={[
                                 weatherData,
                                 lastupd,
-                                cityId,
+                                cityName,
                                 localData,
                                 localTime,
                             ]}
