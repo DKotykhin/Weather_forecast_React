@@ -17,6 +17,7 @@ const MainPage = () => {
     setFlag(!flag);
     //console.log("app: " + flag);
   };
+  
   return (
     <div>
       <AppHeader />

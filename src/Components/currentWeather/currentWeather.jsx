@@ -21,14 +21,13 @@ const CurrentWeather = ({ cityName, flag }) => {
         if (cityName) {
             getWeather(cityName).then((weather) => {
                 if (!weather) return;
-
                 setWeatherData(weather.weatherData);
                 // console.log("pollutionData :>> ", weather.pollutionData);
                 // console.log("weatherData :>> ", weather.weatherData);
             });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [flag, cityName]);
+    }, [flag]);
 
     useEffect(() => {
         const timeOut = setInterval(() => updateTime(), 10000);
